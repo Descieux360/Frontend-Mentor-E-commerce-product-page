@@ -19,7 +19,7 @@
     .attribution a { color: hsl(228, 45%, 44%); }
   </style>
 </head>
-<body>
+<body id="body">
 
   <header>
      <div id="logo-section">
@@ -51,15 +51,23 @@
       </div>
       <div id="product-info">
          <h2>Sneaker company</h2>
-         <h3>Fall Limited Edition Sneakers</h3>
-         <p>  These low-profile sneakers are your perfect casual wear companion. Featuring a 
-         durable rubber outer sole, they’ll withstand everything the weather can offer.
+         <h3>Fall Limited Edition <br> Sneakers</h3>
+         <p>  These low-profile sneakers are your perfect casual wear <br> companion. Featuring a 
+         durable rubber outer sole, they’ll <br> withstand everything the weather can offer.
          </p>
          <div class="price-discount">
            <div class="new-price">$125.00</div>
            <div class="discount-percentage">50%</div>
          </div>
          <div class="original-price">$250.00</div>
+         <div class="cart-actions">
+           <div class="quantity-selected">
+              <img src="./images/icon-minus.svg" alt="minus" id="minus">
+              <span class="count">0</span>
+              <img src="./images/icon-plus.svg" alt="" id="plus">
+           </div>
+           <button id="add-to-cart"><img src="./images/icon-cart.svg" alt=""> <span>Add to cart</span></button>
+         </div>
       </div>
 
   </main>
