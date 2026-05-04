@@ -5,6 +5,11 @@ let item = {
 }
 
 const [plus, minus] = [document.getElementById('plus'), document.getElementById('minus')];
+
+const [next, previous] = [document.getElementById('next'), document.getElementById('previous')];
+const menu = document.getElementById('menu');
+const closeBtn = document.getElementById('close');
+
 const addToCart = document.getElementById('add-to-cart');
 const cartContent = document.querySelector('.cart-icon');
 const count = document.querySelector('.count');
@@ -39,6 +44,44 @@ for(let i = 0; i < 4; i++){
         isActive = true;
     });
 }
+
+let activeImageMobile = 0
+
+next.addEventListener('click', ()=>{
+    if(activeImageMobile >= 0 && activeImageMobile < 4){
+        if(activeImageMobile === 3) {
+            activeImageMobile = 0;
+            activeImage.setAttribute("src",productImages[activeImageMobile])
+            return;
+        }
+        activeImageMobile++;
+        activeImage.removeAttribute('src');
+        activeImage.setAttribute("src",productImages[activeImageMobile]);
+        console.log("i was executed");
+    } 
+});
+
+previous.addEventListener('click', ()=>{
+    if(activeImageMobile >= 0 && activeImageMobile < 4){
+        if(activeImageMobile === 0) {
+            activeImageMobile = 3;
+            activeImage.setAttribute("src",productImages[activeImageMobile])
+            return;
+        }
+        activeImageMobile--;
+        activeImage.removeAttribute('src');
+        activeImage.setAttribute("src",productImages[activeImageMobile]);
+        console.log("i was executed");
+    }  
+});
+
+menu.addEventListener('click', ()=>{
+    document.querySelector('.hamburger-menu').classList.remove('hidden');
+});
+
+closeBtn.addEventListener('click', ()=>{
+    document.querySelector('.hamburger-menu').classList.add('hidden')   
+});
 
 
 plus.addEventListener('click' ,()=>{
@@ -136,5 +179,18 @@ function renderCart(){
     cartContent.parentElement.parentElement.append(cart_container);
 
 }
+
+const width = window.innerWidth;
+
+  if(window.innerWidth < 850 && window.innerWidth> 475){
+     menu.classList.remove('hidden');
+  }
+  if(window.innerWidth < 475) {
+     document.getElementById('navigate-images').style.display = "flex";
+     next.classList.remove('hidden');
+     previous.classList.remove('hidden');
+     menu.classList.remove('hidden');
+  }
+
 
 renderCart();

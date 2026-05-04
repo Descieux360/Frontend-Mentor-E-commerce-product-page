@@ -22,10 +22,19 @@
 <body id="body">
 
   <header>
+     <div class="hamburger-menu hidden">
+        <img src="./images/icon-close.svg" id="close" alt="close-btn" srcset="">
+        <ul class="hamburger-links">
+            <li class="link-item"><a href="#">Collections</a></li>
+            <li class="link-item"><a href="#">Men</a></li>
+            <li class="link-item"><a href="#">Women</a></li>
+            <li class="link-item"><a href="#">About</a></li>
+            <li class="link-item"><a href="#">Contact</a></li>
+        </ul>      
+     </div>
      <div id="logo-section">
+         <img src="./images/icon-menu.svg" alt="hamburger-menu" id="menu" class="hidden">
          <img src="./images/logo.svg" alt="logo" id="logo">
-          <!-- <div class="next"></div>
-          <div class="previous"></div> -->
         <ul class="nav-links">
             <li class="link-item"><a href="#">Collections</a></li>
             <li class="link-item"><a href="#">Men</a></li>
@@ -43,6 +52,14 @@
   <main>
 
       <div class="product-section">
+         <div id="navigate-images" class="hidden" style="display: none;">
+            <div id="previous" class="hidden">
+              <img src="./images/icon-previous.svg" alt="previous-icon" >
+            </div>
+            <div id="next" class="hidden">
+              <img src="./images/icon-next.svg" alt="previous-icon" >
+            </div>
+        </div> 
         <img src="./images/image-product-1.jpg" alt="" class="displayed-image">
         <div class="thumbnail-list">
           <div class="thumbnail-container"><img src="./images/image-product-1-thumbnail.jpg" alt="" class="image-thumbnail"></div>
