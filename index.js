@@ -138,9 +138,6 @@ document.body.addEventListener('click', (event) => {
     if(isOpen) {
         cart_container.classList.add('hidden');
         isOpen = false ;
-    } else {
-        cart_container.classList.remove('hidden');
-        isOpen = true;
     }
     return;
 
