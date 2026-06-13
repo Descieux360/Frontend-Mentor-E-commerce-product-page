@@ -1,4 +1,3 @@
-
 let item = {
     price: 125,
     quantity:0
@@ -50,68 +49,92 @@ function preloadAndSwap(index){
     }
 }
 
-for(let i = 0; i < imageChoices.length; i++){
-    imageChoices[i].addEventListener('click',(element) =>{
-        preloadAndSwap(i);
-        imageChoices.forEach((e)=> e.classList.remove('active-image-selected'));
-        imageChoices[i].classList.add('active-image-selected');
-        isActive = true;
-    });
-}
-
 let activeImageMobile = 0;
 
-next.addEventListener('click', ()=>{
-    if(activeImageMobile >= 0 && activeImageMobile < productImages.length){
-        if(activeImageMobile === productImages.length - 1) {
-            activeImageMobile = 0;
-            preloadAndSwap(activeImageMobile);
-            return;
+document.body.addEventListener('click', (event) => {
+    const target = event.target;
+
+    const thumbnail = target.closest('.thumbnail-container');
+    if (thumbnail) {
+        // Find index of clicked thumbnail matching your original array format
+        const index = Array.from(imageChoices).indexOf(thumbnail);
+        if (index !== -1) {
+            preloadAndSwap(index);
+            imageChoices.forEach((e) => e.classList.remove('active-image-selected'));
+            thumbnail.classList.add('active-image-selected');
+            isActive = true;
         }
-        activeImageMobile++;
-        preloadAndSwap(activeImageMobile);
-    } 
-});
+        return; 
+    }
 
-previous.addEventListener('click', ()=>{
-    if(activeImageMobile >= 0 && activeImageMobile < productImages.length){
-        if(activeImageMobile === 0) {
-            activeImageMobile = productImages.length - 1;
+    if (target.closest('#next')) {
+        if(activeImageMobile >= 0 && activeImageMobile < productImages.length){
+            if(activeImageMobile === productImages.length - 1) {
+                activeImageMobile = 0;
+                preloadAndSwap(activeImageMobile);
+                return;
+            }
+            activeImageMobile++;
             preloadAndSwap(activeImageMobile);
-            return;
+        } 
+        return;
+    }
+
+    if (target.closest('#previous')) {
+        if(activeImageMobile >= 0 && activeImageMobile < productImages.length){
+            if(activeImageMobile === 0) {
+                activeImageMobile = productImages.length - 1;
+                preloadAndSwap(activeImageMobile);
+                return;
+            }
+            activeImageMobile--;
+            preloadAndSwap(activeImageMobile);
+        }  
+        return;
+    }
+
+    if (target.closest('#menu')) {
+        document.querySelector('.hamburger-menu').classList.remove('hidden');
+        return;
+    }
+
+    if (target.closest('#close')) {
+        document.querySelector('.hamburger-menu').classList.add('hidden');
+        return;
+    }
+
+    if (target.closest('#plus')) {
+        updateQuantity("plus");
+        updateCountUI();
+        return;
+    }
+
+    if (target.closest('#minus')) {
+        updateQuantity("minus");
+        updateCountUI();
+        return;
+    }
+
+    if (target.closest('#add-to-cart')) {
+        if(item.quantity === 0) return;
+        cart_container.classList.remove('hidden');
+        isOpen = true;
+        renderCart();
+        return;
+    }
+
+    if (target.closest('.cart-icon')) {
+        if(isOpen) {
+            cart_container.classList.add('hidden');
+            isOpen = false ;
+        } else {
+            cart_container.classList.remove('hidden');
+            isOpen = true;
         }
-        activeImageMobile--;
-        preloadAndSwap(activeImageMobile);
-    }  
-});
+        return;
+    }
 
-menu.addEventListener('click', ()=>{
-    document.querySelector('.hamburger-menu').classList.remove('hidden');
-});
-
-closeBtn.addEventListener('click', ()=>{
-    document.querySelector('.hamburger-menu').classList.add('hidden')   
-});
-
-
-plus.addEventListener('click' ,()=>{
-   updateQuantity("plus");
-   updateCountUI();
-});
-
-minus.addEventListener('click' ,()=>{
-   updateQuantity("minus");
-   updateCountUI();
-});
-
-addToCart.addEventListener('click', ()=>{
-    if(item.quantity === 0) return;
-    cart_container.classList.remove('hidden');
-    isOpen = true;
-    renderCart();
-});
-
-cartContent.addEventListener('click', ()=>{
+    
     if(isOpen) {
         cart_container.classList.add('hidden');
         isOpen = false ;
@@ -119,7 +142,10 @@ cartContent.addEventListener('click', ()=>{
         cart_container.classList.remove('hidden');
         isOpen = true;
     }
+    return;
+
 });
+
 
 function updateQuantity(action){
      switch (action){
@@ -130,6 +156,7 @@ function updateQuantity(action){
             if(   item.quantity === 0)
                 return 
                item.quantity--;
+        break; 
         case "delete":
                item.quantity = 0;           
      }
@@ -205,7 +232,6 @@ const width = window.innerWidth;
      menu.classList.remove('hidden');
   }
 
-// preload first product image for a smooth initial paint
 preloadAndSwap(0);
 updateCountUI();
 renderCart();
